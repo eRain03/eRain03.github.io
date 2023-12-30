@@ -6,21 +6,6 @@
     <description>Recent content in Tags on 未淼的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 Jan 2022 23:33:37 +0800</lastBuildDate>
     <atom:link href="https://erain.fun/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>标签1</title>
-      <link>https://erain.fun/tags/%E6%A0%87%E7%AD%BE1/</link>
-      <pubDate>Sat, 08 Jan 2022 23:33:37 +0800</pubDate>
-      <guid>https://erain.fun/tags/%E6%A0%87%E7%AD%BE1/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>标签2</title>
-      <link>https://erain.fun/tags/%E6%A0%87%E7%AD%BE2/</link>
-      <pubDate>Sat, 08 Jan 2022 23:33:37 +0800</pubDate>
-      <guid>https://erain.fun/tags/%E6%A0%87%E7%AD%BE2/</guid>
-      <description></description>
-    </item>
   </channel>
 </rss>

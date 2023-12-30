@@ -6,14 +6,14 @@
     <description>Recent content on 未淼的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 Jan 2022 23:33:37 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 31 Dec 2023 01:08:23 +0800</lastBuildDate>
     <atom:link href="https://erain.fun/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>测试</title>
-      <link>https://erain.fun/posts/life/%E6%B5%8B%E8%AF%95/</link>
-      <pubDate>Sat, 08 Jan 2022 23:33:37 +0800</pubDate>
-      <guid>https://erain.fun/posts/life/%E6%B5%8B%E8%AF%95/</guid>
-      <description></description>
+      <title>爱快对OpenVPN的配置</title>
+      <link>https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sun, 31 Dec 2023 01:08:23 +0800</pubDate>
+      <guid>https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/</guid>
+      <description>我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex，我的工作站和使用频率很高的Nas文件存储。 旧思路 我之前的思路是使用ipv6</description>
     </item>
     <item>
       <title>Just People</title>
