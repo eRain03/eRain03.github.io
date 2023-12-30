@@ -3,28 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://erain.fun/posts/life/</loc>
-    <lastmod>2023-12-30T02:10:45+08:00</lastmod>
+    <lastmod>2022-01-08T23:33:37+08:00</lastmod>
   </url><url>
     <loc>https://erain.fun/posts/</loc>
-    <lastmod>2023-12-30T02:10:45+08:00</lastmod>
+    <lastmod>2022-01-08T23:33:37+08:00</lastmod>
   </url><url>
     <loc>https://erain.fun/tags/</loc>
-    <lastmod>2023-12-30T02:10:45+08:00</lastmod>
+    <lastmod>2022-01-08T23:33:37+08:00</lastmod>
   </url><url>
     <loc>https://erain.fun/</loc>
-    <lastmod>2023-12-30T02:10:45+08:00</lastmod>
+    <lastmod>2022-01-08T23:33:37+08:00</lastmod>
   </url><url>
     <loc>https://erain.fun/tags/%E6%A0%87%E7%AD%BE1/</loc>
-    <lastmod>2023-12-30T02:10:45+08:00</lastmod>
+    <lastmod>2022-01-08T23:33:37+08:00</lastmod>
   </url><url>
     <loc>https://erain.fun/tags/%E6%A0%87%E7%AD%BE2/</loc>
-    <lastmod>2023-12-30T02:10:45+08:00</lastmod>
+    <lastmod>2022-01-08T23:33:37+08:00</lastmod>
   </url><url>
     <loc>https://erain.fun/posts/life/%E6%B5%8B%E8%AF%95/</loc>
-    <lastmod>2023-12-30T02:10:45+08:00</lastmod>
+    <lastmod>2022-01-08T23:33:37+08:00</lastmod>
   </url><url>
-    <loc>https://erain.fun/posts/life/hugo-papermod-config/</loc>
-    <lastmod>2018-04-23T21:41:23+08:00</lastmod>
+    <loc>https://erain.fun/archives/</loc>
   </url><url>
     <loc>https://erain.fun/posts/tool/</loc>
   </url><url>
@@ -32,12 +31,14 @@
   </url><url>
     <loc>https://erain.fun/posts/read/</loc>
   </url><url>
-    <loc>https://erain.fun/archives/</loc>
-  </url><url>
     <loc>https://erain.fun/categories/</loc>
+  </url><url>
+    <loc>https://erain.fun/about/</loc>
   </url><url>
     <loc>https://erain.fun/search/</loc>
   </url><url>
     <loc>https://erain.fun/series/</loc>
+  </url><url>
+    <loc>https://erain.fun/links/</loc>
   </url>
 </urlset>

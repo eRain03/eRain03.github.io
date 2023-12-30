@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>未淼的博客</title>
     <link>https://erain.fun/</link>
     <description>Recent content on 未淼的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 30 Dec 2023 02:10:45 +0800</lastBuildDate><atom:link href="https://erain.fun/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Jan 2022 23:33:37 +0800</lastBuildDate>
+    <atom:link href="https://erain.fun/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>测试</title>
       <link>https://erain.fun/posts/life/%E6%B5%8B%E8%AF%95/</link>
-      <pubDate>Sat, 30 Dec 2023 02:10:45 +0800</pubDate>
-      
+      <pubDate>Sat, 08 Jan 2022 23:33:37 +0800</pubDate>
       <guid>https://erain.fun/posts/life/%E6%B5%8B%E8%AF%95/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>折腾 Hugo &amp; PaperMod 主题</title>
-      <link>https://erain.fun/posts/life/hugo-papermod-config/</link>
-      <pubDate>Fri, 20 Apr 2018 21:41:23 +0800</pubDate>
-      
-      <guid>https://erain.fun/posts/life/hugo-papermod-config/</guid>
-      <description></description>
+      <title>Just People</title>
+      <link>https://erain.fun/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://erain.fun/about/</guid>
+      <description>博客会记录我的学习历程和部分项目成果，同时也会记录一些我的读书笔记，来培养阅读习惯.</description>
     </item>
-    
-    
-    
+    <item>
+      <title>链接</title>
+      <link>https://erain.fun/links/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://erain.fun/links/</guid>
+      <description>包含了友链和我一些很推荐阅读的博客 阮一峰的网络日志 David Simão &amp;rsquo;s jungle</description>
+    </item>
   </channel>
 </rss>
