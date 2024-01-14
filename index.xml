@@ -6,21 +6,21 @@
     <description>Recent content on 未淼的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 14 Jan 2024 09:14:15 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 31 Dec 2023 01:08:23 +0800</lastBuildDate>
     <atom:link href="https://erain.fun/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>神州数码设备知识点备份</title>
-      <link>https://erain.fun/posts/tech/%E7%A5%9E%E5%B7%9E%E6%95%B0%E7%A0%81%E8%AE%BE%E5%A4%87%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%87%E4%BB%BD/</link>
-      <pubDate>Sun, 14 Jan 2024 09:14:15 +0800</pubDate>
-      <guid>https://erain.fun/posts/tech/%E7%A5%9E%E5%B7%9E%E6%95%B0%E7%A0%81%E8%AE%BE%E5%A4%87%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%87%E4%BB%BD/</guid>
-      <description>[!NOTE] 仅作为备份文件 备份时间 2023.6.23 一、交换机配置 1、生成树spanning-tree SW1、SW2、SW3启用MSTP，实现网络二层负载均衡和冗余备</description>
-    </item>
     <item>
       <title>爱快对OpenVPN的配置</title>
       <link>https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Sun, 31 Dec 2023 01:08:23 +0800</pubDate>
       <guid>https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/</guid>
       <description>我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex，我的工作站和使用频率很高的Nas文件存储。 旧思路 我之前的思路是使用ipv6</description>
+    </item>
+    <item>
+      <title>神州数码设备知识点备份</title>
+      <link>https://erain.fun/posts/tech/%E7%A5%9E%E5%B7%9E%E6%95%B0%E7%A0%81%E8%AE%BE%E5%A4%87%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%87%E4%BB%BD/</link>
+      <pubDate>Fri, 14 Jul 2023 09:14:15 +0800</pubDate>
+      <guid>https://erain.fun/posts/tech/%E7%A5%9E%E5%B7%9E%E6%95%B0%E7%A0%81%E8%AE%BE%E5%A4%87%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%87%E4%BB%BD/</guid>
+      <description>仅作为备份文件 备份时间 2023.6.23 一、交换机配置 1、生成树spanning-tree SW1、SW2、SW3启用MSTP，实现网络二层负载均衡和冗余备份</description>
     </item>
     <item>
       <title>Just People</title>
