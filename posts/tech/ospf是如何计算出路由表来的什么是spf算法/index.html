@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>爱快对OpenVPN的配置 | 未淼的博客</title>
+<title>OSPF是如何计算出路由表来的？什么是SPF算法？ | 未淼的博客</title>
 <meta name="keywords" content="">
-<meta name="description" content="我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex，我的工作站和使用频率很高的Nas文件存储。 旧思路 我之前的思路是使用ipv6">
+<meta name="description" content="OSPF是如何计算出路由表来的？什么是SPF算法？写下在查阅了各种文档和书籍后开始对OSPF的一些理解，做此纪录用于学习和分享。 OSPF的特">
 <meta name="author" content="未淼">
-<link rel="canonical" href="https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/">
+<link rel="canonical" href="https://erain.fun/posts/tech/ospf%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E5%87%BA%E8%B7%AF%E7%94%B1%E8%A1%A8%E6%9D%A5%E7%9A%84%E4%BB%80%E4%B9%88%E6%98%AFspf%E7%AE%97%E6%B3%95/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.2738a21a8f4259354ef8232db6a6357622c8ec4dca4c991280ca23151173cfd9.css" integrity="sha256-JziiGo9CWTVO&#43;CMttqY1diLI7E3KTJkSgMojFRFzz9k=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
@@ -29,16 +29,16 @@
 
     </style>
 </noscript><link href="https://fonts.cdnfonts.com/css/code-new-roman" rel="stylesheet">               
-<meta property="og:title" content="爱快对OpenVPN的配置" />
-<meta property="og:description" content="我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex，我的工作站和使用频率很高的Nas文件存储。 旧思路 我之前的思路是使用ipv6" />
+<meta property="og:title" content="OSPF是如何计算出路由表来的？什么是SPF算法？" />
+<meta property="og:description" content="OSPF是如何计算出路由表来的？什么是SPF算法？写下在查阅了各种文档和书籍后开始对OSPF的一些理解，做此纪录用于学习和分享。 OSPF的特" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-12-31T01:08:23+08:00" />
+<meta property="og:url" content="https://erain.fun/posts/tech/ospf%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E5%87%BA%E8%B7%AF%E7%94%B1%E8%A1%A8%E6%9D%A5%E7%9A%84%E4%BB%80%E4%B9%88%E6%98%AFspf%E7%AE%97%E6%B3%95/" /><meta property="article:section" content="posts" />
+
 <meta property="article:modified_time" content="2023-12-31T01:08:23+08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="爱快对OpenVPN的配置"/>
-<meta name="twitter:description" content="我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex，我的工作站和使用频率很高的Nas文件存储。 旧思路 我之前的思路是使用ipv6"/>
+<meta name="twitter:title" content="OSPF是如何计算出路由表来的？什么是SPF算法？"/>
+<meta name="twitter:description" content="OSPF是如何计算出路由表来的？什么是SPF算法？写下在查阅了各种文档和书籍后开始对OSPF的一些理解，做此纪录用于学习和分享。 OSPF的特"/>
 
 
 <script type="application/ld+json">
@@ -61,8 +61,8 @@
     {
       "@type": "ListItem",
       "position":  4 ,
-      "name": "爱快对OpenVPN的配置",
-      "item": "https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/"
+      "name": "OSPF是如何计算出路由表来的？什么是SPF算法？",
+      "item": "https://erain.fun/posts/tech/ospf%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E5%87%BA%E8%B7%AF%E7%94%B1%E8%A1%A8%E6%9D%A5%E7%9A%84%E4%BB%80%E4%B9%88%E6%98%AFspf%E7%AE%97%E6%B3%95/"
     }
   ]
 }
@@ -71,16 +71,16 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "爱快对OpenVPN的配置",
-  "name": "爱快对OpenVPN的配置",
-  "description": "我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex，我的工作站和使用频率很高的Nas文件存储。 旧思路 我之前的思路是使用ipv6",
+  "headline": "OSPF是如何计算出路由表来的？什么是SPF算法？",
+  "name": "OSPF是如何计算出路由表来的？什么是SPF算法？",
+  "description": "OSPF是如何计算出路由表来的？什么是SPF算法？写下在查阅了各种文档和书籍后开始对OSPF的一些理解，做此纪录用于学习和分享。 OSPF的特",
   "keywords": [
     
   ],
-  "articleBody": " 我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex，我的工作站和使用频率很高的Nas文件存储。\n旧思路 我之前的思路是使用ipv6公网地址给所有主机分配地址，在家中的爱快路由上配置了DDNS解析到我的域名，Cloudflare的代理功能可以将我的ipv6地址代理为ipv4，虽然延迟堪忧，稳定性一般。不过作为没有ipv6环境下的备用访问就没有要求太高。\n利与弊 ipv6的好处显而易见，对比ipv4的公网IP数量可谓是取之不尽，坏处也很明显，外出的时候不是所有网络环境都支持ipv6的，每次都要手机开热点，以便使用移动数据给分配的ipv6确实很麻烦，更不用说在使用Nas或是plex这种服务速率也是个问题。\n更重要的一个问题就是把家中的所有设备暴露在公网下并不安全，公网下的设备方便了我们也方便了一些不怀好意的人。\n新想法 于是我打算更换另一种方案使用VPN打通隧道，来访问家里的服务。好处就是安全，也不用将所有设备都暴露在公网环境下，只需要在防火墙放行特定的端口。\n我之前在连接我朋友的工作室内网时使用过pptp或l2tp，本来这次的方案打算使用PPTP服务，比较对于这种比较传统的点对点隧道很多系统都会内置，不需要再下载客户端去配置。可当我在爱快软路由中配置好了PPTP后，使用电脑连接时出现了问题，内置的PPTP客户端不支持ipv6协议。我本想用我的vps内网穿透映射ipv4出来用，可想可想还是放弃了，想法回到了ipv6上，毕竟ipv6现在已经很稳定了，以后只会越来越好。\nOpenVPN PPTP用不了了，我把目光放到了爱快自带的openvpn服务端上，经过查询资料，发现openvpn是有udp6的，于是我配置了ddns解析，就在爱快上进行了对openvpn的简单配置。从爱快导出了openvpn客户端的配置文件，发现openvpn的客户端中没有关于ipv6的开关，对配置文件进行查看，可以修改图中内容为udp6，ip为我解析的域名。\n未完成\n",
-  "wordCount" : "817",
+  "articleBody": " OSPF是如何计算出路由表来的？什么是SPF算法？写下在查阅了各种文档和书籍后开始对OSPF的一些理解，做此纪录用于学习和分享。\nOSPF的特性 [Wiki] Wiki百科中这样写到 开放式最短路径优先（英语：Open Shortest Path First，缩写为 OSPF）是广泛使用的一种路由协议，它属于链路状态路由协议，具有路由变化收敛速度快、无路由环路、支持变长子网掩码（VLSM）和汇总、层次区域划分等优点。\n不难看出OSPF有很多难以拒绝的优点，收敛速度快，树状的拓扑时期不会出现环路问题，很容易划分区域，方便管理等，也许这就是为什么大多数企业都会选择OSPF的原因(对比RIP不要好用太多太多) 有关OSPF是如何选举DR，怎么建立链接交换LSA数据库等等，在上一篇文章讲了，强烈建议看过这篇文章再来看下面的内容。 \u003c文章链接丢失\u003e 今天主要来看OSPF是如何计算出最短路由的。\nSPF算法如何计算出优先算短路径？ SPF算法中有一个很重要的点叫Cost(花费),中文翻译过来叫花费，听起来就像去超市买东西花费了很多钱一样，但它有所不同，它更像是你从家门口打车去到某一个地方花了多少钱。 在树状图中Cost的值代表了一个节点到另一个节点所花费的跃点(Cost)，其实就是你经过了几个路由(节点)。 为什么是树状图？\n如果对STP生成树协议有所了解的话，我们就会知道树状图能有效避免环路的问题，如图，树状图不会有任何一个”三角形“出现，这样的结构能避免环路的问题。\n回到正题，我们要知道一点每一台路由(节点)都会运行SPF算法来计算出最短路径来，就像图中这四个节点一样，R1会计算出如下信息 R1—R2 Cost=1 但它会计算其他的路径吗，不会。因为SPF不计算间接连接的节点所的Cost值。这或许能解释为什么在配置ospf时我们只会配置相邻的网段而不会配置间接连接的网段。我将四个节点所计算出的信息一一列出 R1: R1—R2 Cost=1 R2: R2—R1 Cost=1 R2—R3 Cost=1 R3: R3—R2 Cost=1 R3—R4 Cost=1 R4: R4—R3 Cost=1\n此时每个节点会将自己计算的信息打包和相邻的节点进行数据库交互，它们交换数据包，就有了完整的最短路径树，如下：\nR1的路径表：\n到达R2的最短路径：R1-\u003eR2，链路成本(Cost)为1 到达R3的最短路径：R1-\u003eR2-\u003eR3，链路成本为2 到达R4的最短路径：R1-\u003eR2-\u003eR3-\u003eR4，链路成本为3 R2的路径表：\n到达R1的最短路径：R2-\u003eR1，链路成本为1 到达R3的最短路径：R2-\u003eR3，链路成本为1 到达R4的最短路径：R2-\u003eR3-\u003eR4，链路成本为2 R3的路径表：\n到达R1的最短路径：R3-\u003eR2-\u003eR1，链路成本为2 到达R2的最短路径：R3-\u003eR2，链路成本为1 到达R4的最短路径：R3-\u003eR4，链路成本为1 R4的路径表：\n到达R1的最短路径：R4-\u003eR3-\u003eR2-\u003eR1，链路成本为3 到达R2的最短路径：R4-\u003eR3-\u003eR2，链路成本为2 到达R3的最短路径：R4-\u003eR3，链路成本为1 最短路径树 完整的最短路径树就是如此生成出来的，有了最短路径树，就像有了一张绝对快速不拖沓的地图。 用这张地图来计算路由表，计算出类似的信息\n目标网络：x.x.x.x/x （查找最短路径） 下一跳：y.y.y.y （选择最快的下一跳路由） 出接口：GigabitEthernet0/1 最短路径树中的每个节点都有一个数据库，数据库中包含了目标网络的最短路径和下一跳路由的地址信息，路由器根据最短路径树去更新自己的路由表，实现高效率，高速度，优质的通信。\n",
+  "wordCount" : "1463",
   "inLanguage": "en",
-  "datePublished": "2023-12-31T01:08:23+08:00",
+  "datePublished": "0001-01-01T00:00:00Z",
   "dateModified": "2023-12-31T01:08:23+08:00",
   "author":[{
     "@type": "Person",
@@ -88,7 +88,7 @@
   }],
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/"
+    "@id": "https://erain.fun/posts/tech/ospf%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E5%87%BA%E8%B7%AF%E7%94%B1%E8%A1%A8%E6%9D%A5%E7%9A%84%E4%BB%80%E4%B9%88%E6%98%AFspf%E7%AE%97%E6%B3%95/"
   },
   "publisher": {
     "@type": "Organization",
@@ -185,7 +185,7 @@
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://erain.fun">Home</a>&nbsp;»&nbsp;<a href="https://erain.fun/posts/">“文章”</a>&nbsp;»&nbsp;<a href="https://erain.fun/posts/tech/">“技术分享”</a></div>
     <h1 class="post-title entry-hint-parent">
-      爱快对OpenVPN的配置
+      OSPF是如何计算出路由表来的？什么是SPF算法？
     </h1>
     <div class="post-meta"><span title='2023-12-31 01:08:23 +0800 CST'>2023年12月31日</span>&nbsp;|&nbsp;未淼
 
@@ -203,21 +203,13 @@
 
             <div class="inner"><ul>
                     <li>
-                        <a href="#%e6%97%a7%e6%80%9d%e8%b7%af" aria-label="旧思路">旧思路</a><ul>
-                            <ul>
+                        <a href="#ospf%e7%9a%84%e7%89%b9%e6%80%a7" aria-label="OSPF的特性">OSPF的特性</a></li>
+                    <li>
+                        <a href="#spf%e7%ae%97%e6%b3%95%e5%a6%82%e4%bd%95%e8%ae%a1%e7%ae%97%e5%87%ba%e4%bc%98%e5%85%88%e7%ae%97%e7%9f%ad%e8%b7%af%e5%be%84" aria-label="SPF算法如何计算出优先算短路径？">SPF算法如何计算出优先算短路径？</a><ul>
                             
                     <li>
-                        <a href="#%e5%88%a9%e4%b8%8e%e5%bc%8a" aria-label="利与弊">利与弊</a></li></ul>
-                        </ul>
+                        <a href="#%e6%9c%80%e7%9f%ad%e8%b7%af%e5%be%84%e6%a0%91" aria-label="最短路径树">最短路径树</a>
                     </li>
-                    <li>
-                        <a href="#%e6%96%b0%e6%83%b3%e6%b3%95" aria-label="新想法">新想法</a><ul>
-                            <ul>
-                            
-                    <li>
-                        <a href="#openvpn" aria-label="OpenVPN">OpenVPN</a>
-                    </li>
-                </ul>
                 </ul>
                 </li>
                 </ul>
@@ -287,19 +279,88 @@
 
 
   <div class="post-content"><blockquote>
-<p>我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex，我的工作站和使用频率很高的Nas文件存储。</p>
+<p>OSPF是如何计算出路由表来的？什么是SPF算法？写下在查阅了各种文档和书籍后开始对OSPF的一些理解，做此纪录用于学习和分享。</p>
 </blockquote>
-<h1 id="旧思路">旧思路<a hidden class="anchor" aria-hidden="true" href="#旧思路">#</a></h1>
-<p>我之前的思路是使用ipv6公网地址给所有主机分配地址，在家中的爱快路由上配置了DDNS解析到我的域名，Cloudflare的代理功能可以将我的ipv6地址代理为ipv4，虽然延迟堪忧，稳定性一般。不过作为没有ipv6环境下的备用访问就没有要求太高。</p>
-<h3 id="利与弊">利与弊<a hidden class="anchor" aria-hidden="true" href="#利与弊">#</a></h3>
-<p>ipv6的好处显而易见，对比ipv4的公网IP数量可谓是取之不尽，坏处也很明显，外出的时候不是所有网络环境都支持ipv6的，每次都要手机开热点，以便使用移动数据给分配的ipv6确实很麻烦，更不用说在使用Nas或是plex这种服务速率也是个问题。</p>
-<p>更重要的一个问题就是把家中的所有设备暴露在公网下并不安全，公网下的设备方便了我们也方便了一些不怀好意的人。</p>
-<h1 id="新想法">新想法<a hidden class="anchor" aria-hidden="true" href="#新想法">#</a></h1>
-<p>于是我打算更换另一种方案使用VPN打通隧道，来访问家里的服务。好处就是安全，也不用将所有设备都暴露在公网环境下，只需要在防火墙放行特定的端口。</p>
-<p>我之前在连接我朋友的工作室内网时使用过pptp或l2tp，本来这次的方案打算使用PPTP服务，比较对于这种比较传统的点对点隧道很多系统都会内置，不需要再下载客户端去配置。可当我在爱快软路由中配置好了PPTP后，使用电脑连接时出现了问题，内置的PPTP客户端不支持ipv6协议。我本想用我的vps内网穿透映射ipv4出来用，可想可想还是放弃了，想法回到了ipv6上，毕竟ipv6现在已经很稳定了，以后只会越来越好。</p>
-<h3 id="openvpn">OpenVPN<a hidden class="anchor" aria-hidden="true" href="#openvpn">#</a></h3>
-<p>PPTP用不了了，我把目光放到了爱快自带的openvpn服务端上，经过查询资料，发现openvpn是有udp6的，于是我配置了ddns解析，就在爱快上进行了对openvpn的简单配置。从爱快导出了openvpn客户端的配置文件，发现openvpn的客户端中没有关于ipv6的开关，对配置文件进行查看，可以修改图中内容为udp6，ip为我解析的域名。</p>
-<p>未完成</p>
+<h1 id="ospf的特性">OSPF的特性<a hidden class="anchor" aria-hidden="true" href="#ospf的特性">#</a></h1>
+<blockquote>
+<p>[Wiki] Wiki百科中这样写到
+<strong>开放式最短路径优先</strong>（英语：Open Shortest Path First，缩写为 OSPF）是广泛使用的一种路由协议，它属于链路状态路由协议，具有路由变化收敛速度快、无路由环路、支持变长子网掩码（VLSM）和汇总、层次区域划分等优点。</p>
+</blockquote>
+<p>不难看出OSPF有很多难以拒绝的优点，收敛速度快，树状的拓扑时期不会出现环路问题，很容易划分区域，方便管理等，也许这就是为什么大多数企业都会选择OSPF的原因(对比RIP不要好用太多太多)
+有关OSPF是如何选举DR，怎么建立链接交换LSA数据库等等，在上一篇文章讲了，强烈建议看过这篇文章再来看下面的内容。
+&lt;文章链接丢失&gt;
+今天主要来看OSPF是如何计算出最短路由的。</p>
+<h1 id="spf算法如何计算出优先算短路径">SPF算法如何计算出优先算短路径？<a hidden class="anchor" aria-hidden="true" href="#spf算法如何计算出优先算短路径">#</a></h1>
+<p>SPF算法中有一个很重要的点叫Cost(花费),中文翻译过来叫花费，听起来就像去超市买东西花费了很多钱一样，但它有所不同，它更像是你从家门口打车去到某一个地方花了多少钱。
+在树状图中Cost的值代表了一个节点到另一个节点所花费的跃点(Cost)，其实就是你经过了几个路由(节点)。
+<em>为什么是树状图？</em></p>
+<blockquote>
+<p>如果对STP生成树协议有所了解的话，我们就会知道树状图能有效避免环路的问题，如图，树状图不会有任何一个”三角形“出现，这样的结构能避免环路的问题。</p>
+</blockquote>
+<p><img loading="lazy" src="https://raw.githubusercontent.com/eRain03/cuttotail/main/2.png" alt=""  />
+</p>
+<p>回到正题，我们要知道一点每一台路由(节点)都会运行SPF算法来计算出最短路径来，就像图中这四个节点一样，R1会计算出如下信息
+<em><strong>R1&mdash;R2    Cost=1</strong></em>
+但它会计算其他的路径吗，不会。因为SPF不计算间接连接的节点所的Cost值。这或许能解释为什么在配置ospf时我们只会配置相邻的网段而不会配置间接连接的网段。我将四个节点所计算出的信息一一列出
+<em><strong>R1:</strong></em>
+<em><strong>R1&mdash;R2    Cost=1</strong></em>
+<em><strong>R2:</strong></em>
+<em><strong>R2&mdash;R1    Cost=1        R2&mdash;R3    Cost=1</strong></em>
+<em><strong>R3:</strong></em>
+<em><strong>R3&mdash;R2    Cost=1        R3&mdash;R4    Cost=1</strong></em>
+<em><strong>R4:</strong></em>
+<em><strong>R4&mdash;R3    Cost=1</strong></em></p>
+<p>此时每个节点会将自己计算的信息打包和相邻的节点进行数据库交互，它们交换数据包，就有了完整的最短路径树，如下：</p>
+<ul>
+<li>
+<p>R1的路径表：</p>
+<ul>
+<li>到达R2的最短路径：R1-&gt;R2，链路成本(Cost)为1</li>
+<li>到达R3的最短路径：R1-&gt;R2-&gt;R3，链路成本为2</li>
+<li>到达R4的最短路径：R1-&gt;R2-&gt;R3-&gt;R4，链路成本为3</li>
+</ul>
+</li>
+<li>
+<p>R2的路径表：</p>
+<ul>
+<li>到达R1的最短路径：R2-&gt;R1，链路成本为1</li>
+<li>到达R3的最短路径：R2-&gt;R3，链路成本为1</li>
+<li>到达R4的最短路径：R2-&gt;R3-&gt;R4，链路成本为2</li>
+</ul>
+</li>
+<li>
+<p>R3的路径表：</p>
+<ul>
+<li>到达R1的最短路径：R3-&gt;R2-&gt;R1，链路成本为2</li>
+<li>到达R2的最短路径：R3-&gt;R2，链路成本为1</li>
+<li>到达R4的最短路径：R3-&gt;R4，链路成本为1</li>
+</ul>
+</li>
+<li>
+<p>R4的路径表：</p>
+<ul>
+<li>到达R1的最短路径：R4-&gt;R3-&gt;R2-&gt;R1，链路成本为3</li>
+<li>到达R2的最短路径：R4-&gt;R3-&gt;R2，链路成本为2</li>
+<li>到达R3的最短路径：R4-&gt;R3，链路成本为1</li>
+</ul>
+</li>
+</ul>
+<p><img loading="lazy" src="https://raw.githubusercontent.com/eRain03/cuttotail/main/1.png" alt=""  />
+</p>
+<h2 id="最短路径树">最短路径树<a hidden class="anchor" aria-hidden="true" href="#最短路径树">#</a></h2>
+<p>完整的最短路径树就是如此生成出来的，有了最短路径树，就像有了一张绝对快速不拖沓的地图。
+用这张地图来计算路由表，计算出类似的信息</p>
+<ul>
+<li>目标网络：x.x.x.x/x    （查找最短路径）
+<ul>
+<li>下一跳：y.y.y.y      （选择最快的下一跳路由）</li>
+<li>出接口：GigabitEthernet0/1</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>最短路径树中的每个节点都有一个数据库，数据库中包含了目标网络的最短路径和下一跳路由的地址信息，路由器根据最短路径树去更新自己的路由表，实现高效率，高速度，优质的通信。</p>
+</blockquote>
 
 
   </div>
@@ -308,15 +369,15 @@
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://erain.fun/posts/tech/ospf%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97%E5%87%BA%E8%B7%AF%E7%94%B1%E8%A1%A8%E6%9D%A5%E7%9A%84%E4%BB%80%E4%B9%88%E6%98%AFspf%E7%AE%97%E6%B3%95/">
+  <a class="prev" href="https://erain.fun/posts/tech/%E7%A5%9E%E7%A0%81-%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87%E9%A2%98%E7%9B%AE%E7%9F%A5%E8%AF%86%E7%82%B9/">
     <span class="title">« Prev</span>
     <br>
-    <span>OSPF是如何计算出路由表来的？什么是SPF算法？</span>
+    <span>神码网络设备题目知识点</span>
   </a>
-  <a class="next" href="https://erain.fun/posts/tech/%E7%A5%9E%E5%B7%9E%E6%95%B0%E7%A0%81%E8%AE%BE%E5%A4%87%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%87%E4%BB%BD/">
+  <a class="next" href="https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/">
     <span class="title">Next »</span>
     <br>
-    <span>神州数码设备知识点备份</span>
+    <span>爱快对OpenVPN的配置</span>
   </a>
 </nav>
 
