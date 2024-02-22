@@ -2,13 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://erain.fun/posts/tech/</loc>
-    <lastmod>2024-02-18T01:02:24+08:00</lastmod>
-  </url><url>
     <loc>https://erain.fun/posts/</loc>
-    <lastmod>2024-02-18T01:02:24+08:00</lastmod>
+    <lastmod>2024-02-22T21:58:34+08:00</lastmod>
+  </url><url>
+    <loc>https://erain.fun/posts/read/</loc>
+    <lastmod>2024-02-22T21:58:34+08:00</lastmod>
+  </url><url>
+    <loc>https://erain.fun/posts/read/%E6%88%91%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E8%AE%B0/</loc>
+    <lastmod>2024-02-22T21:58:34+08:00</lastmod>
   </url><url>
     <loc>https://erain.fun/</loc>
+    <lastmod>2024-02-22T21:58:34+08:00</lastmod>
+  </url><url>
+    <loc>https://erain.fun/posts/tech/</loc>
     <lastmod>2024-02-18T01:02:24+08:00</lastmod>
   </url><url>
     <loc>https://erain.fun/posts/tech/%E7%A5%9E%E7%A0%81-%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87%E9%A2%98%E7%9B%AE%E7%9F%A5%E8%AF%86%E7%82%B9/</loc>
@@ -28,8 +34,6 @@
     <loc>https://erain.fun/posts/tool/</loc>
   </url><url>
     <loc>https://erain.fun/posts/life/</loc>
-  </url><url>
-    <loc>https://erain.fun/posts/read/</loc>
   </url><url>
     <loc>https://erain.fun/categories/</loc>
   </url><url>
