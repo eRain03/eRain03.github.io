@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Hadoop集群配置 | 未淼的博客</title>
+<meta name="keywords" content="">
+<meta name="description" content="先前条件 Node1 Node2 Node3 192.168.1.39 192.168.1.9 192.168.1.40 关闭防火墙 停止防火墙进程 systemctl stop firewalld.service 禁用防火墙开机启动 systemctl disable firewalld.service 对三个节点分别修改主机名 hostnamectl set-hostname Node{1,2,3} 安装必要软件环境 yum install -y java-1.8.0-openjdk vim #安装jd">
+<meta name="author" content="未淼">
+<link rel="canonical" href="https://erain.fun/posts/tech/hadoop%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2738a21a8f4259354ef8232db6a6357622c8ec4dca4c991280ca23151173cfd9.css" integrity="sha256-JziiGo9CWTVO&#43;CMttqY1diLI7E3KTJkSgMojFRFzz9k=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://erain.fun/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="16x16" href="https://erain.fun/img/Q.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://erain.fun/img/Q.jpg">
+<link rel="apple-touch-icon" href="https://erain.fun/Q.jpg">
+<link rel="mask-icon" href="https://erain.fun/Q.jpg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><link href="https://fonts.cdnfonts.com/css/code-new-roman" rel="stylesheet">               
+<meta property="og:title" content="Hadoop集群配置" />
+<meta property="og:description" content="先前条件 Node1 Node2 Node3 192.168.1.39 192.168.1.9 192.168.1.40 关闭防火墙 停止防火墙进程 systemctl stop firewalld.service 禁用防火墙开机启动 systemctl disable firewalld.service 对三个节点分别修改主机名 hostnamectl set-hostname Node{1,2,3} 安装必要软件环境 yum install -y java-1.8.0-openjdk vim #安装jd" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://erain.fun/posts/tech/hadoop%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-19T08:45:15+08:00" />
+<meta property="article:modified_time" content="2024-03-19T08:45:15+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hadoop集群配置"/>
+<meta name="twitter:description" content="先前条件 Node1 Node2 Node3 192.168.1.39 192.168.1.9 192.168.1.40 关闭防火墙 停止防火墙进程 systemctl stop firewalld.service 禁用防火墙开机启动 systemctl disable firewalld.service 对三个节点分别修改主机名 hostnamectl set-hostname Node{1,2,3} 安装必要软件环境 yum install -y java-1.8.0-openjdk vim #安装jd"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "“文章”",
+      "item": "https://erain.fun/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "“技术分享”",
+      "item": "https://erain.fun/posts/tech/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  4 ,
+      "name": "Hadoop集群配置",
+      "item": "https://erain.fun/posts/tech/hadoop%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Hadoop集群配置",
+  "name": "Hadoop集群配置",
+  "description": "先前条件 Node1 Node2 Node3 192.168.1.39 192.168.1.9 192.168.1.40 关闭防火墙 停止防火墙进程 systemctl stop firewalld.service 禁用防火墙开机启动 systemctl disable firewalld.service 对三个节点分别修改主机名 hostnamectl set-hostname Node{1,2,3} 安装必要软件环境 yum install -y java-1.8.0-openjdk vim #安装jd",
+  "keywords": [
+    
+  ],
+  "articleBody": "先前条件 Node1 Node2 Node3 192.168.1.39 192.168.1.9 192.168.1.40 关闭防火墙 停止防火墙进程 systemctl stop firewalld.service 禁用防火墙开机启动 systemctl disable firewalld.service 对三个节点分别修改主机名 hostnamectl set-hostname Node{1,2,3} 安装必要软件环境 yum install -y java-1.8.0-openjdk vim #安装jdk8和vim等必备软件 修改Hosts文件定向主机IP vim /etc/hosts node1 192.168.1.39 node2 192.168.1.9 node3 192.168.1.40 ping node1 ping node2 ping node3 测试连通性 给Node123添加hadoop用户并赋予sudo权限 Node123全部要做 [root@node2 ~]# useradd hadoop [root@node2 ~]# # 设置密码需要手动输入两次密码，笔者这里也暂时设定密码为hadoop [root@node2 ~]# passwd hadoop 更改用户 hadoop 的密码 。 新的 密码： 重新输入新的 密码： passwd：所有的身份验证令牌已经成功更新。 [root@node2 ~]# mkdir -p /data/hadoop [root@node2 ~]# chown hadoop:hadoop /data/hadoop chmod u+w /etc/sudoers vim /etc/sudoers # 在sudoers文件的root用户一行后面添加下面内容并且保存 hadoop ALL=(ALL) NOPASSWD:ALL chmod u-w /etc/sudoers sudo chmod -R a+w /data/hadoop 生成RSA密钥SSH免密登录 Node123全部要做 su hadoop ssh-keygen -t rsa ##按几次回车 cd /home/hadoop/.ssh/ cat id_rsa.pub \u003e\u003e authorized_keys vim authorized_keys ##把其他主机的添加进去 最后每个节点的authorized_keys内容都应该是这样的： ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTwzdM+cmFy1lO4bNpD1T5+EO0FNvBBymf3B/Pdd92/Dq3Z3cTr+XHL9HWrIZPxDoWCm7OQY9Ek3oCJgjhlnxowQbtHp8GUKmmJma19NStBNHrO8T3wpbypOgUB7xJQZclpPpxrkkiMbGEU5MV3wJxFPEA2Sd3b7sdYx2YW/hMU94UabbzV4aJjtsG9GHHx4yq9e9/P31jnidhf013F7t9lIBdCPlgHj7+feliVhjSM1jbUt3CFDsskkFXMKuzVHP6B/ipviFtLt6SA3AgDIvFFD3CYV2KgiCd7JKqR/a+8765ML9auSubf7JegDUBvVXDt+fPOVc1Lm37nCyhGLjX hadoop@node1 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD3arpeN86cemzQPdz86oQV+gKk3A9MTpNAvFNl8QLfiYft8Hscsp3oQkdyWd+vnu/VxUa7URx6iOAfaTluYOlyY18A41wnAkE9xP3861Mak8SmvPPxsj8wsC8KugBk2uGVeOHjHyMQW0Qcd/Qe/2jnqsbDJsuK7ZyxOzEHbMaIb3IRIo6x1WVUv6x4oX9mJkgZw066Wzu0nNAanDDKDmP+Ncz1OcnGoYd+B+YUqeXtPJ7acQtBoNO/2Hp35G5CK5j5VH0Yj5HKUyy1t3jv+PuSc2HVMlHLidx+CxuDYWZd2O/4GRqjnT7xLo88aBE8fAVSr876FyfJDBdYLSC66nyZ hadoop@node2 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7I19R6/js2tvicWcATaNzXlY+BVELMqDx2vhqfnlJAdlfOtyAgsaCduu8hu4El6WZymTckjX1YumeIHr8oGdajNtYugAcOcELijCFCnGUc4xcuVqVWw/Xf4TlT9wg3S9L33+Zj1EYvXp3lq04dyWO2VvZN2Iqq+bhk4tPZdGLttYqo24oXTr+kvyzYy7zeBTQmovVWaDT43ZpYSSzq5M8chjOvR0kPt/ygb/cuV2ZnTAXfNpTF/SHZIWeWqbAIexcdEnczATR/0f5Z/wFrAiG+Awppi1zNVLn1oRoC5sVQ61jqAuvZxAEp5AdgzRdTp3DFtynxVWqsgDmMFTOKNkX hadoop@node3 全部完事了记着赋予目录权限 chmod 700 /home/hadoop/.ssh/ \u0026\u0026 chmod 700 /home/hadoop/ \u0026\u0026 chmod 600 /home/hadoop/.ssh/authorized_keys\nssh hadoop@192.168.1.9 应该是免密码的 开始安装hadoop 下载并解压 cd /data/hadoop 把hadoop安装包复制到各个节点 [hadoop@node1 hadoop]$ scp hadoop-3.3.5.tar.gz hadoop@node2:/data/hadoop/ hadoop-3.3.5.tar.gz 100% 674MB 61.2MB/s 00:11 [hadoop@node1 hadoop]$ scp hadoop-3.3.5.tar.gz hadoop@node3:/data/hadoop/ The authenticity of host 'node3 (192.168.1.40)' can't be established. ECDSA key fingerprint is SHA256:tVUngomohqjvUulSZAx83tsqN6qn+8cMap1QbYjsFZc. ECDSA key fingerprint is MD5:33:0e:00:28:c6:55:e7:97:85:a9:10:bc:ad:19:6c:b9. Are you sure you want to continue connecting (yes/no)? yes Warning: Permanently added 'node3,192.168.1.40' (ECDSA) to the list of known hosts. hadoop-3.3.5.tar.gz 100% 674MB 61.2MB/s 00:11 [hadoop@node1 hadoop]$ 解压 tar -zxvf hadoop-3.3.5.tar.gz 使用mv命令重命名为app方便记录 mv hadoop-3.3.5 app 配置环境变量 vim ~/.bashrc 写入 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.402.b06-1.el7_9.x86_64/jre export PATH=$JAVA_HOME/bin:$PATH export HADOOP_HOME=/data/hadoop/app export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH 保存 source ~/.bashrc hadoop安装成功 [hadoop@node1 ~]$ hadoop version Hadoop 3.3.5 Source code repository https://github.com/apache/hadoop.git -r 706d88266abcee09ed78fbaa0ad5f74d818ab0e9 Compiled by stevel on 2023-03-15T15:56Z Compiled with protoc 3.7.1 From source with checksum 6bbd9afcf4838a0eb12a5f189e9bd7 This command was run using /data/hadoop/app/share/hadoop/common/hadoop-common-3.3.5.jar ### 4、Hadoop配置 配置core-site.xml（具体是/data/hadoop/app/etc/hadoop/core-site.xml）：\nfs.defaultFS hdfs://node1:9000 hadoop.tmp.dir /data/hadoop/temp fs.defaultFS：nameNode的HDFS协议的文件系统通信地址 hadoop.tmp.dir：Hadoop集群在工作的时候存储的一些临时文件的目录 配置hdfs-site.xml（具体是/data/hadoop/app/etc/hadoop/hdfs-site.xml）：\ndfs.namenode.name.dir /data/hadoop/dfs/name dfs.datanode.data.dir /data/hadoop/dfs/data dfs.replication 3 dfs.secondary.http.address node3:50090 dfs.http.address 192.168.56.200:50070 dfs.namenode.name.dir：NameNode的数据存放目录 dfs.datanode.data.dir：DataNode的数据存放目录 dfs.replication：HDFS的副本数 dfs.secondary.http.address：SecondaryNameNode节点的HTTP入口地址 dfs.http.address：通过HTTP访问HDFS的Web管理界面的地址 配置mapred-site.xml（具体是/data/hadoop/app/etc/hadoop/mapred-site.xml）:\nmapreduce.framework.name yarn yarn.app.mapreduce.am.env HADOOP_MAPRED_HOME=${HADOOP_HOME} mapreduce.map.env HADOOP_MAPRED_HOME=${HADOOP_HOME} mapreduce.reduce.env HADOOP_MAPRED_HOME=${HADOOP_HOME} mapreduce.framework.name：选用yarn，也就是MR框架使用YARN进行资源调度。 配置yarn-site.xml（具体是/data/hadoop/app/etc/hadoop/yarn-site.xml）：\nyarn.resourcemanager.hostname node3 yarn.nodemanager.aux-services mapreduce_shuffle yarn.resourcemanager.hostname：指定ResourceManager所在的主机名 yarn.nodemanager.aux-services：指定YARN集群为MapReduce程序提供Shuffle服务 配置workers文件（这个文件在旧版本叫slaves，因为技术政治化运动被改为workers，具体是/data/hadoop/app/etc/hadoop/workers：\nnode1 node2 node3 至此，核心配置基本完成。\n同步配置到node23 scp -r /data/hadoop/app hadoop@node2:/data/hadoop scp -r /data/hadoop/app hadoop@node3:/data/hadoop 在node1上初始化节点 hadoop namenode -format\n7、启动和停止HDFS# 可以在任意一个节点中启动和停止HDFS，为了简单起见还是在hadoop01节点中操作：\n启动：start-dfs.sh 停止：stop-dfs.sh 调用启动命令后，控制台输出如下：\n[hadoop@hadoop01 hadoop]$ start-dfs.sh Starting namenodes on [hadoop01] Starting datanodes Starting secondary namenodes [hadoop03] 8、启动和停止YARN# YARN集群的启动命令必须在ResourceManager节点中调用，规划中的对应角色的节点为hadoop03，在该机器执行YARN相关命令：\n启动：start-yarn.sh 停止：stop-yarn.sh 执行启动命令后，控制台输出如下：\n[hadoop@hadoop03 data]$ start-yarn.sh Starting resourcemanager Starting nodemanagers 9、查看所有节点的进程状态# 分别查看集群中所有节点的进程状态，可以直接使用jps工具，具体结果如下：\n[hadoop@hadoop01 hadoop]$ jps 8673 NameNode 8823 DataNode 9383 NodeManager 9498 Jps [hadoop@hadoop02 hadoop]$ jps 4305 DataNode 4849 Jps 4734 NodeManager [hadoop@hadoop03 data]$ jps 9888 Jps 9554 NodeManager 5011 DataNode 9427 ResourceManager 5125 SecondaryNameNode 可见进程是正常运行的。\n![[Snipaste_2024-03-19_10-23-23.png]] ![[Snipaste_2024-03-19_10-24-26.png]]\n后续软件补充 Spark2.1.0 HBase1.1.5 Scala2.11.8 MySQL Kafka_2.11-0.10.2.0 Flume1.7.0 sbt Maven3.3.9 MongoDB3.2.17 Hive2.1.0 Scala IDE（包含Eclipse4.7.0和Maven、Scala、sbt插件） 只是简单记录，可能某些地方会有小错误，如有发现，联系我修改\n",
+  "wordCount" : "1942",
+  "inLanguage": "en",
+  "datePublished": "2024-03-19T08:45:15+08:00",
+  "dateModified": "2024-03-19T08:45:15+08:00",
+  "author":[{
+    "@type": "Person",
+    "name": "未淼"
+  }],
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://erain.fun/posts/tech/hadoop%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "未淼的博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://erain.fun/img/Q.jpg"
+    }
+  }
+}
+</script>
+    <script src="/css/64336ff59a.js" crossorigin="anonymous"></script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://erain.fun" accesskey="h" title="未淼&#39;s Blog (Alt + H)">未淼&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://erain.fun/" title="首页">
+                    <span><i class='fas fa-home'>&nbsp;</i>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://erain.fun/search" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span><i class='fas fa-search'>&nbsp;</i>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://erain.fun/archives/" title="归档">
+                    <span><i class='fas fa-clock-rotate-left'>&nbsp;</i>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://erain.fun/itools.html" title="工具站">
+                    <span><i class='fas fa-tools'>&nbsp;</i>工具站</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://erain.fun/links" title="链接">
+                    <span><i class='fas fa-link'></i>链接</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://erain.fun/about" title="关于">
+                    <span><i class='fas fa-user-plus'>&nbsp;</i>关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://erain.fun/index.xml" title="RSS">
+                    <span><i class='fas fa-rss'>&nbsp;</i>RSS</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://erain.fun">Home</a>&nbsp;»&nbsp;<a href="https://erain.fun/posts/">“文章”</a>&nbsp;»&nbsp;<a href="https://erain.fun/posts/tech/">“技术分享”</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Hadoop集群配置
+    </h1>
+    <div class="post-meta"><span title='2024-03-19 08:45:15 +0800 CST'>2024年3月19日</span>&nbsp;|&nbsp;未淼
+
+
+
+
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#%e5%85%88%e5%89%8d%e6%9d%a1%e4%bb%b6" aria-label="先前条件">先前条件</a><ul>
+                            
+                    <li>
+                        <a href="#%e5%85%b3%e9%97%ad%e9%98%b2%e7%81%ab%e5%a2%99" aria-label="关闭防火墙">关闭防火墙</a></li>
+                    <li>
+                        <a href="#%e5%ae%89%e8%a3%85%e5%bf%85%e8%a6%81%e8%bd%af%e4%bb%b6%e7%8e%af%e5%a2%83" aria-label="安装必要软件环境">安装必要软件环境</a></li>
+                    <li>
+                        <a href="#%e4%bf%ae%e6%94%b9hosts%e6%96%87%e4%bb%b6%e5%ae%9a%e5%90%91%e4%b8%bb%e6%9c%baip" aria-label="修改Hosts文件定向主机IP">修改Hosts文件定向主机IP</a></li>
+                    <li>
+                        <a href="#%e7%bb%99node123%e6%b7%bb%e5%8a%a0hadoop%e7%94%a8%e6%88%b7%e5%b9%b6%e8%b5%8b%e4%ba%88sudo%e6%9d%83%e9%99%90" aria-label="给Node123添加hadoop用户并赋予sudo权限">给Node123添加hadoop用户并赋予sudo权限</a></li>
+                    <li>
+                        <a href="#%e7%94%9f%e6%88%90rsa%e5%af%86%e9%92%a5ssh%e5%85%8d%e5%af%86%e7%99%bb%e5%bd%95" aria-label="生成RSA密钥SSH免密登录">生成RSA密钥SSH免密登录</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e5%bc%80%e5%a7%8b%e5%ae%89%e8%a3%85hadoop" aria-label="开始安装hadoop">开始安装hadoop</a><ul>
+                            
+                    <li>
+                        <a href="#%e4%b8%8b%e8%bd%bd%e5%b9%b6%e8%a7%a3%e5%8e%8b" aria-label="下载并解压">下载并解压</a></li>
+                    <li>
+                        <a href="#%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f" aria-label="配置环境变量">配置环境变量</a></li>
+                    <li>
+                        <a href="#hadoop%e5%ae%89%e8%a3%85%e6%88%90%e5%8a%9f" aria-label="hadoop安装成功">hadoop安装成功</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#-4hadoop%e9%85%8d%e7%bd%ae" aria-label="### 4、Hadoop配置">### 4、Hadoop配置</a></li>
+                    <li>
+                        <a href="#%e5%90%8e%e7%bb%ad%e8%bd%af%e4%bb%b6%e8%a1%a5%e5%85%85" aria-label="后续软件补充">后续软件补充</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;
+    }
+</script>
+
+
+  <div class="post-content"><h1 id="先前条件">先前条件<a hidden class="anchor" aria-hidden="true" href="#先前条件">#</a></h1>
+<table>
+<thead>
+<tr>
+<th>Node1</th>
+<th>Node2</th>
+<th>Node3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.1.39</td>
+<td>192.168.1.9</td>
+<td>192.168.1.40</td>
+</tr>
+</tbody>
+</table>
+<h2 id="关闭防火墙">关闭防火墙<a hidden class="anchor" aria-hidden="true" href="#关闭防火墙">#</a></h2>
+<pre><code>
+ 停止防火墙进程
+systemctl stop firewalld.service
+
+禁用防火墙开机启动
+systemctl disable firewalld.service
+
+对三个节点分别修改主机名
+hostnamectl set-hostname Node{1,2,3}
+
+</code></pre>
+<h2 id="安装必要软件环境">安装必要软件环境<a hidden class="anchor" aria-hidden="true" href="#安装必要软件环境">#</a></h2>
+<pre><code>yum install -y java-1.8.0-openjdk vim 
+#安装jdk8和vim等必备软件
+</code></pre>
+<h2 id="修改hosts文件定向主机ip">修改Hosts文件定向主机IP<a hidden class="anchor" aria-hidden="true" href="#修改hosts文件定向主机ip">#</a></h2>
+<pre><code>vim /etc/hosts
+
+node1 192.168.1.39
+node2 192.168.1.9
+node3 192.168.1.40
+
+
+ping node1
+ping node2
+ping node3
+测试连通性
+
+</code></pre>
+<h2 id="给node123添加hadoop用户并赋予sudo权限">给Node123添加hadoop用户并赋予sudo权限<a hidden class="anchor" aria-hidden="true" href="#给node123添加hadoop用户并赋予sudo权限">#</a></h2>
+<pre><code>Node123全部要做
+
+[root@node2 ~]# useradd hadoop
+[root@node2 ~]# # 设置密码需要手动输入两次密码，笔者这里也暂时设定密码为hadoop
+[root@node2 ~]# passwd hadoop
+更改用户 hadoop 的密码 。
+新的 密码：
+重新输入新的 密码：
+passwd：所有的身份验证令牌已经成功更新。
+[root@node2 ~]# mkdir -p /data/hadoop
+[root@node2 ~]# chown hadoop:hadoop /data/hadoop
+
+chmod u+w /etc/sudoers
+vim /etc/sudoers
+# 在sudoers文件的root用户一行后面添加下面内容并且保存
+hadoop ALL=(ALL) NOPASSWD:ALL 
+chmod u-w /etc/sudoers
+sudo chmod -R a+w /data/hadoop
+</code></pre>
+<h2 id="生成rsa密钥ssh免密登录">生成RSA密钥SSH免密登录<a hidden class="anchor" aria-hidden="true" href="#生成rsa密钥ssh免密登录">#</a></h2>
+<pre><code>Node123全部要做
+
+su hadoop
+ssh-keygen -t rsa
+##按几次回车
+cd /home/hadoop/.ssh/
+cat id_rsa.pub &gt;&gt; authorized_keys
+vim authorized_keys
+##把其他主机的添加进去
+最后每个节点的authorized_keys内容都应该是这样的：
+</code></pre>
+<pre><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTwzdM+cmFy1lO4bNpD1T5+EO0FNvBBymf3B/Pdd92/Dq3Z3cTr+XHL9HWrIZPxDoWCm7OQY9Ek3oCJgjhlnxowQbtHp8GUKmmJma19NStBNHrO8T3wpbypOgUB7xJQZclpPpxrkkiMbGEU5MV3wJxFPEA2Sd3b7sdYx2YW/hMU94UabbzV4aJjtsG9GHHx4yq9e9/P31jnidhf013F7t9lIBdCPlgHj7+feliVhjSM1jbUt3CFDsskkFXMKuzVHP6B/ipviFtLt6SA3AgDIvFFD3CYV2KgiCd7JKqR/a+8765ML9auSubf7JegDUBvVXDt+fPOVc1Lm37nCyhGLjX hadoop@node1
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD3arpeN86cemzQPdz86oQV+gKk3A9MTpNAvFNl8QLfiYft8Hscsp3oQkdyWd+vnu/VxUa7URx6iOAfaTluYOlyY18A41wnAkE9xP3861Mak8SmvPPxsj8wsC8KugBk2uGVeOHjHyMQW0Qcd/Qe/2jnqsbDJsuK7ZyxOzEHbMaIb3IRIo6x1WVUv6x4oX9mJkgZw066Wzu0nNAanDDKDmP+Ncz1OcnGoYd+B+YUqeXtPJ7acQtBoNO/2Hp35G5CK5j5VH0Yj5HKUyy1t3jv+PuSc2HVMlHLidx+CxuDYWZd2O/4GRqjnT7xLo88aBE8fAVSr876FyfJDBdYLSC66nyZ hadoop@node2
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7I19R6/js2tvicWcATaNzXlY+BVELMqDx2vhqfnlJAdlfOtyAgsaCduu8hu4El6WZymTckjX1YumeIHr8oGdajNtYugAcOcELijCFCnGUc4xcuVqVWw/Xf4TlT9wg3S9L33+Zj1EYvXp3lq04dyWO2VvZN2Iqq+bhk4tPZdGLttYqo24oXTr+kvyzYy7zeBTQmovVWaDT43ZpYSSzq5M8chjOvR0kPt/ygb/cuV2ZnTAXfNpTF/SHZIWeWqbAIexcdEnczATR/0f5Z/wFrAiG+Awppi1zNVLn1oRoC5sVQ61jqAuvZxAEp5AdgzRdTp3DFtynxVWqsgDmMFTOKNkX hadoop@node3
+
+</code></pre>
+<p>全部完事了记着赋予目录权限
+<code>chmod 700 /home/hadoop/.ssh/ &amp;&amp; chmod 700 /home/hadoop/ &amp;&amp; chmod 600 /home/hadoop/.ssh/authorized_keys</code></p>
+<pre><code>ssh hadoop@192.168.1.9
+应该是免密码的
+
+</code></pre>
+<h1 id="开始安装hadoop">开始安装hadoop<a hidden class="anchor" aria-hidden="true" href="#开始安装hadoop">#</a></h1>
+<h2 id="下载并解压">下载并解压<a hidden class="anchor" aria-hidden="true" href="#下载并解压">#</a></h2>
+<pre><code>cd /data/hadoop
+把hadoop安装包复制到各个节点
+[hadoop@node1 hadoop]$ scp hadoop-3.3.5.tar.gz hadoop@node2:/data/hadoop/ 
+hadoop-3.3.5.tar.gz                                                                                                  100%  674MB  61.2MB/s   00:11    
+[hadoop@node1 hadoop]$ scp hadoop-3.3.5.tar.gz hadoop@node3:/data/hadoop/ 
+The authenticity of host 'node3 (192.168.1.40)' can't be established.
+ECDSA key fingerprint is SHA256:tVUngomohqjvUulSZAx83tsqN6qn+8cMap1QbYjsFZc.
+ECDSA key fingerprint is MD5:33:0e:00:28:c6:55:e7:97:85:a9:10:bc:ad:19:6c:b9.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'node3,192.168.1.40' (ECDSA) to the list of known hosts.
+hadoop-3.3.5.tar.gz                                                                                                  100%  674MB  61.2MB/s   00:11    
+[hadoop@node1 hadoop]$ 
+解压
+tar -zxvf hadoop-3.3.5.tar.gz
+使用mv命令重命名为app方便记录
+mv hadoop-3.3.5 app
+
+
+</code></pre>
+<h2 id="配置环境变量">配置环境变量<a hidden class="anchor" aria-hidden="true" href="#配置环境变量">#</a></h2>
+<pre><code>vim ~/.bashrc
+
+写入
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.402.b06-1.el7_9.x86_64/jre
+export PATH=$JAVA_HOME/bin:$PATH
+export HADOOP_HOME=/data/hadoop/app
+export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
+
+
+保存
+source ~/.bashrc
+</code></pre>
+<h2 id="hadoop安装成功">hadoop安装成功<a hidden class="anchor" aria-hidden="true" href="#hadoop安装成功">#</a></h2>
+<pre><code>[hadoop@node1 ~]$ hadoop version
+Hadoop 3.3.5
+Source code repository https://github.com/apache/hadoop.git -r 706d88266abcee09ed78fbaa0ad5f74d818ab0e9
+Compiled by stevel on 2023-03-15T15:56Z
+Compiled with protoc 3.7.1
+From source with checksum 6bbd9afcf4838a0eb12a5f189e9bd7
+This command was run using /data/hadoop/app/share/hadoop/common/hadoop-common-3.3.5.jar
+
+</code></pre>
+<h1 id="-4hadoop配置">### 4、Hadoop配置<a hidden class="anchor" aria-hidden="true" href="#-4hadoop配置">#</a></h1>
+<p>配置<code>core-site.xml</code>（具体是<code>/data/hadoop/app/etc/hadoop/core-site.xml</code>）：</p>
+<pre><code class="language-xml">&lt;configuration&gt;
+    &lt;property&gt;
+            &lt;name&gt;fs.defaultFS&lt;/name&gt;
+            &lt;value&gt;hdfs://node1:9000&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+            &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+            &lt;value&gt;/data/hadoop/temp&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<ul>
+<li><code>fs.defaultFS</code>：<code>nameNode</code>的<code>HDFS</code>协议的文件系统通信地址</li>
+<li><code>hadoop.tmp.dir</code>：<code>Hadoop</code>集群在工作的时候存储的一些临时文件的目录</li>
+</ul>
+<p>配置<code>hdfs-site.xml</code>（具体是<code>/data/hadoop/app/etc/hadoop/hdfs-site.xml</code>）：</p>
+<pre><code class="language-xml">&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+        &lt;value&gt;/data/hadoop/dfs/name&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+        &lt;value&gt;/data/hadoop/dfs/data&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.replication&lt;/name&gt;
+        &lt;value&gt;3&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.secondary.http.address&lt;/name&gt;
+        &lt;value&gt;node3:50090&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.http.address&lt;/name&gt;
+        &lt;value&gt;192.168.56.200:50070&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<ul>
+<li><code>dfs.namenode.name.dir</code>：<code>NameNode</code>的数据存放目录</li>
+<li><code>dfs.datanode.data.dir</code>：<code>DataNode</code>的数据存放目录</li>
+<li><code>dfs.replication</code>：<code>HDFS</code>的副本数</li>
+<li><code>dfs.secondary.http.address</code>：<code>SecondaryNameNode</code>节点的<code>HTTP</code>入口地址</li>
+<li><code>dfs.http.address</code>：通过<code>HTTP</code>访问<code>HDFS</code>的<code>Web</code>管理界面的地址</li>
+</ul>
+<p>配置<code>mapred-site.xml</code>（具体是<code>/data/hadoop/app/etc/hadoop/mapred-site.xml</code>）:</p>
+<pre><code class="language-xml">&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+        &lt;value&gt;yarn&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.app.mapreduce.am.env&lt;/name&gt;
+        &lt;value&gt;HADOOP_MAPRED_HOME=${HADOOP_HOME}&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.map.env&lt;/name&gt;
+        &lt;value&gt;HADOOP_MAPRED_HOME=${HADOOP_HOME}&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.reduce.env&lt;/name&gt;
+        &lt;value&gt;HADOOP_MAPRED_HOME=${HADOOP_HOME}&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<ul>
+<li><code>mapreduce.framework.name</code>：选用<code>yarn</code>，也就是<code>MR</code>框架使用<code>YARN</code>进行资源调度。</li>
+</ul>
+<p>配置<code>yarn-site.xml</code>（具体是<code>/data/hadoop/app/etc/hadoop/yarn-site.xml</code>）：</p>
+<pre><code class="language-xml">&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+        &lt;value&gt;node3&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre>
+<ul>
+<li><code>yarn.resourcemanager.hostname</code>：指定<code>ResourceManager</code>所在的主机名</li>
+<li><code>yarn.nodemanager.aux-services</code>：指定<code>YARN</code>集群为<code>MapReduce</code>程序提供<code>Shuffle</code>服务</li>
+</ul>
+<p>配置<code>workers</code>文件（这个文件在旧版本叫<code>slaves</code>，因为技术政治化运动被改为<code>workers</code>，具体是<code>/data/hadoop/app/etc/hadoop/workers</code>：</p>
+<pre><code class="language-shell">node1
+node2
+node3
+</code></pre>
+<p>至此，核心配置基本完成。</p>
+<pre><code>同步配置到node23
+scp -r /data/hadoop/app hadoop@node2:/data/hadoop
+scp -r /data/hadoop/app hadoop@node3:/data/hadoop
+</code></pre>
+<p>在node1上初始化节点
+<code>hadoop namenode -format</code></p>
+<h3 id="7启动和停止hdfshttpswwwcnblogscomthrowablep14131255html7e590afe58aa8e5928ce5819ce6ada2hdfs">7、启动和停止HDFS<a href="https://www.cnblogs.com/throwable/p/14131255.html#7%E5%90%AF%E5%8A%A8%E5%92%8C%E5%81%9C%E6%AD%A2hdfs" target="_blank" rel="noopener">#</a>
+</h3>
+<p>可以在任意一个节点中启动和停止<code>HDFS</code>，为了简单起见还是在<code>hadoop01</code>节点中操作：</p>
+<ul>
+<li>启动：<code>start-dfs.sh</code></li>
+<li>停止：<code>stop-dfs.sh</code></li>
+</ul>
+<p>调用启动命令后，控制台输出如下：</p>
+<pre><code class="language-shell">[hadoop@hadoop01 hadoop]$ start-dfs.sh 
+Starting namenodes on [hadoop01]
+Starting datanodes
+Starting secondary namenodes [hadoop03]
+</code></pre>
+<h3 id="8启动和停止yarnhttpswwwcnblogscomthrowablep14131255html8e590afe58aa8e5928ce5819ce6ada2yarn">8、启动和停止YARN<a href="https://www.cnblogs.com/throwable/p/14131255.html#8%E5%90%AF%E5%8A%A8%E5%92%8C%E5%81%9C%E6%AD%A2yarn" target="_blank" rel="noopener">#</a>
+</h3>
+<p><code>YARN</code>集群的启动命令必须在<code>ResourceManager</code>节点中调用，规划中的对应角色的节点为<code>hadoop03</code>，在该机器执行<code>YARN</code>相关命令：</p>
+<ul>
+<li>启动：<code>start-yarn.sh</code></li>
+<li>停止：<code>stop-yarn.sh</code></li>
+</ul>
+<p>执行启动命令后，控制台输出如下：</p>
+<pre><code class="language-shell">[hadoop@hadoop03 data]$ start-yarn.sh 
+Starting resourcemanager
+Starting nodemanagers
+</code></pre>
+<h3 id="9查看所有节点的进程状态httpswwwcnblogscomthrowablep14131255html9e69fa5e79c8be68980e69c89e88a82e782b9e79a84e8bf9be7a88be78ab6e68081">9、查看所有节点的进程状态<a href="https://www.cnblogs.com/throwable/p/14131255.html#9%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81" target="_blank" rel="noopener">#</a>
+</h3>
+<p>分别查看集群中所有节点的进程状态，可以直接使用<code>jps</code>工具，具体结果如下：</p>
+<pre><code class="language-shell">[hadoop@hadoop01 hadoop]$ jps
+8673 NameNode
+8823 DataNode
+9383 NodeManager
+9498 Jps
+
+[hadoop@hadoop02 hadoop]$ jps
+4305 DataNode
+4849 Jps
+4734 NodeManager
+
+[hadoop@hadoop03 data]$ jps
+9888 Jps
+9554 NodeManager
+5011 DataNode
+9427 ResourceManager
+5125 SecondaryNameNode
+</code></pre>
+<p>可见进程是正常运行的。</p>
+<p>![[Snipaste_2024-03-19_10-23-23.png]]
+![[Snipaste_2024-03-19_10-24-26.png]]</p>
+<h1 id="后续软件补充">后续软件补充<a hidden class="anchor" aria-hidden="true" href="#后续软件补充">#</a></h1>
+<ul>
+<li>Spark2.1.0</li>
+<li>HBase1.1.5</li>
+<li>Scala2.11.8</li>
+<li>MySQL</li>
+<li>Kafka_2.11-0.10.2.0</li>
+<li>Flume1.7.0</li>
+<li>sbt</li>
+<li>Maven3.3.9</li>
+<li>MongoDB3.2.17</li>
+<li>Hive2.1.0</li>
+<li>Scala IDE（包含Eclipse4.7.0和Maven、Scala、sbt插件）</li>
+</ul>
+<blockquote>
+<p>只是简单记录，可能某些地方会有小错误，如有发现，联系我修改</p>
+</blockquote>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://erain.fun/posts/tech/gre-over-ipsec-%E7%AC%94%E8%AE%B0/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>网络设备题目</span>
+  </a>
+  <a class="next" href="https://erain.fun/posts/tech/%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87%E9%A2%98%E7%9B%AE%E7%AD%94%E6%A1%88/">
+    <span class="title">Next »</span>
+    <br>
+    <span>网络设备题目</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>©2020-2023 未淼</span>
+    <span>All rights reserved.
+
+
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

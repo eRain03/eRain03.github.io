@@ -122,6 +122,38 @@
     </h2>
   </header>
   <div class="entry-content">
+    <p>要求FW1 与 RT2 之间用 Internet 互联地址建立 GRE Over IPSec VPN, 实现 Loopback4 之间的加密访问。RT2 的 ACL 名称为 ACL-VPN, transform-set 名称为 SET-1,crypto map 名称为 MAP-1。FW1 的 isakmp proposal 名称为 P-1,isakmp peer 名称为...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-07-07 01:02:24 +0800 CST'>2024年7月7日</span>&nbsp;|&nbsp;未淼
+
+
+
+</footer>
+  <a class="entry-link" aria-label="post link to 网络设备题目" href="https://erain.fun/posts/tech/gre-over-ipsec-%E7%AC%94%E8%AE%B0/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Hadoop集群配置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>先前条件 Node1 Node2 Node3 192.168.1.39 192.168.1.9 192.168.1.40 关闭防火墙 停止防火墙进程 systemctl stop firewalld.service 禁用防火墙开机启动 systemctl disable firewalld.service 对三个节点分别修改主机名 hostnamectl set-hostname Node{1,2,3} 安装必要软件环境 yum install -y java-1.8.0-openjdk vim #安装jd...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-03-19 08:45:15 +0800 CST'>2024年3月19日</span>&nbsp;|&nbsp;未淼
+
+
+
+</footer>
+  <a class="entry-link" aria-label="post link to Hadoop集群配置" href="https://erain.fun/posts/tech/hadoop%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">网络设备题目
+    </h2>
+  </header>
+  <div class="entry-content">
     <p>交换机部分 1、生成树spanning-tree SW1、SW2、SW3启用MSTP，实现网络二层负载均衡和冗余备份，创建实例Instance1...</p>
   </div>
   <footer class="entry-footer"><span title='2024-02-18 01:02:24 +0800 CST'>2024年2月18日</span>&nbsp;|&nbsp;未淼
@@ -129,7 +161,7 @@
 
 
 </footer>
-  <a class="entry-link" aria-label="post link to 网络设备题目" href="https://erain.fun/posts/tech/%E7%A5%9E%E7%A0%81-%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87%E9%A2%98%E7%9B%AE%E7%9F%A5%E8%AF%86%E7%82%B9/"></a>
+  <a class="entry-link" aria-label="post link to 网络设备题目" href="https://erain.fun/posts/tech/%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87%E9%A2%98%E7%9B%AE%E7%AD%94%E6%A1%88/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -150,22 +182,6 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">爱快对OpenVPN的配置
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex，我的工作站和使用频率很高的Nas文件存储。 旧思路 我之前的思路是使用ipv6...</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-12-31 01:08:23 +0800 CST'>2023年12月31日</span>&nbsp;|&nbsp;未淼
-
-
-
-</footer>
-  <a class="entry-link" aria-label="post link to 爱快对OpenVPN的配置" href="https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">神州数码设备知识点备份
     </h2>
   </header>
@@ -182,13 +198,29 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">爱快对OpenVPN的配置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex和文件存储（顺带提一嘴，CasaOS确实漂亮） 注：这篇博客是从旧博客迁移过来...</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-12-31 01:08:23 +0800 CST'>2021年12月31日</span>&nbsp;|&nbsp;未淼
+
+
+
+</footer>
+  <a class="entry-link" aria-label="post link to 爱快对OpenVPN的配置" href="https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">横向移动 通过SSH连接使目标机及作为Socks5代理服务器
     </h2>
   </header>
   <div class="entry-content">
     <p>直接说方法 ssh -D &lt;本地端口号&gt; -f -C -q -N &lt;用户名&gt;@&lt;SSH服务器地址&gt; -D &lt;本地端口号&gt;：指定一...</p>
   </div>
-  <footer class="entry-footer"><span title='2020-01-15 20:05:30 +0800 CST'>2020年1月15日</span>&nbsp;|&nbsp;未淼
+  <footer class="entry-footer"><span title='2019-10-15 20:05:30 +0800 CST'>2019年10月15日</span>&nbsp;|&nbsp;未淼
 
 
 

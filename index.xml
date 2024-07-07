@@ -6,13 +6,27 @@
     <description>Recent content on 未淼的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 18 Feb 2024 01:02:24 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jul 2024 01:02:24 +0800</lastBuildDate>
     <atom:link href="https://erain.fun/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>网络设备题目</title>
-      <link>https://erain.fun/posts/tech/%E7%A5%9E%E7%A0%81-%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87%E9%A2%98%E7%9B%AE%E7%9F%A5%E8%AF%86%E7%82%B9/</link>
+      <link>https://erain.fun/posts/tech/gre-over-ipsec-%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sun, 07 Jul 2024 01:02:24 +0800</pubDate>
+      <guid>https://erain.fun/posts/tech/gre-over-ipsec-%E7%AC%94%E8%AE%B0/</guid>
+      <description>要求FW1 与 RT2 之间用 Internet 互联地址建立 GRE Over IPSec VPN, 实现 Loopback4 之间的加密访问。RT2 的 ACL 名称为 ACL-VPN, transform-set 名称为 SET-1,crypto map 名称为 MAP-1。FW1 的 isakmp proposal 名称为 P-1,isakmp peer 名称为</description>
+    </item>
+    <item>
+      <title>Hadoop集群配置</title>
+      <link>https://erain.fun/posts/tech/hadoop%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Tue, 19 Mar 2024 08:45:15 +0800</pubDate>
+      <guid>https://erain.fun/posts/tech/hadoop%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/</guid>
+      <description>先前条件 Node1 Node2 Node3 192.168.1.39 192.168.1.9 192.168.1.40 关闭防火墙 停止防火墙进程 systemctl stop firewalld.service 禁用防火墙开机启动 systemctl disable firewalld.service 对三个节点分别修改主机名 hostnamectl set-hostname Node{1,2,3} 安装必要软件环境 yum install -y java-1.8.0-openjdk vim #安装jd</description>
+    </item>
+    <item>
+      <title>网络设备题目</title>
+      <link>https://erain.fun/posts/tech/%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87%E9%A2%98%E7%9B%AE%E7%AD%94%E6%A1%88/</link>
       <pubDate>Sun, 18 Feb 2024 01:02:24 +0800</pubDate>
-      <guid>https://erain.fun/posts/tech/%E7%A5%9E%E7%A0%81-%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87%E9%A2%98%E7%9B%AE%E7%9F%A5%E8%AF%86%E7%82%B9/</guid>
+      <guid>https://erain.fun/posts/tech/%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87%E9%A2%98%E7%9B%AE%E7%AD%94%E6%A1%88/</guid>
       <description>交换机部分 1、生成树spanning-tree SW1、SW2、SW3启用MSTP，实现网络二层负载均衡和冗余备份，创建实例Instance1</description>
     </item>
     <item>
@@ -30,13 +44,6 @@
       <description>OSPF是如何计算出路由表来的？什么是SPF算法？写下在查阅了各种文档和书籍后开始对OSPF的一些理解，做此纪录用于学习和分享。 OSPF的特</description>
     </item>
     <item>
-      <title>爱快对OpenVPN的配置</title>
-      <link>https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Sun, 31 Dec 2023 01:08:23 +0800</pubDate>
-      <guid>https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/</guid>
-      <description>我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex，我的工作站和使用频率很高的Nas文件存储。 旧思路 我之前的思路是使用ipv6</description>
-    </item>
-    <item>
       <title>神州数码设备知识点备份</title>
       <link>https://erain.fun/posts/tech/%E7%A5%9E%E5%B7%9E%E6%95%B0%E7%A0%81%E8%AE%BE%E5%A4%87%E7%9F%A5%E8%AF%86%E7%82%B9%E5%A4%87%E4%BB%BD/</link>
       <pubDate>Fri, 14 Jul 2023 09:14:15 +0800</pubDate>
@@ -44,9 +51,16 @@
       <description>仅作为备份文件 备份时间 2023.6.23 一、交换机配置 1、生成树spanning-tree SW1、SW2、SW3启用MSTP，实现网络二层负载均衡和冗余备份</description>
     </item>
     <item>
+      <title>爱快对OpenVPN的配置</title>
+      <link>https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Fri, 31 Dec 2021 01:08:23 +0800</pubDate>
+      <guid>https://erain.fun/posts/tech/%E7%88%B1%E5%BF%AB%E5%AF%B9openvpn%E7%9A%84%E9%85%8D%E7%BD%AE/</guid>
+      <description>我平时有访问家中的网络的需求，家里的服务器运行了我常用的Plex和文件存储（顺带提一嘴，CasaOS确实漂亮） 注：这篇博客是从旧博客迁移过来</description>
+    </item>
+    <item>
       <title>横向移动 通过SSH连接使目标机及作为Socks5代理服务器</title>
       <link>https://erain.fun/posts/tech/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8-%E9%80%9A%E8%BF%87ssh%E8%BF%9E%E6%8E%A5%E4%BD%BF%E7%9B%AE%E6%A0%87%E6%9C%BA%E5%8F%8A%E4%BD%9C%E4%B8%BAsocks5%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
-      <pubDate>Wed, 15 Jan 2020 20:05:30 +0800</pubDate>
+      <pubDate>Tue, 15 Oct 2019 20:05:30 +0800</pubDate>
       <guid>https://erain.fun/posts/tech/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8-%E9%80%9A%E8%BF%87ssh%E8%BF%9E%E6%8E%A5%E4%BD%BF%E7%9B%AE%E6%A0%87%E6%9C%BA%E5%8F%8A%E4%BD%9C%E4%B8%BAsocks5%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
       <description>直接说方法 ssh -D &amp;lt;本地端口号&amp;gt; -f -C -q -N &amp;lt;用户名&amp;gt;@&amp;lt;SSH服务器地址&amp;gt; -D &amp;lt;本地端口号&amp;gt;：指定一</description>
     </item>
@@ -62,7 +76,7 @@
       <link>https://erain.fun/links/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://erain.fun/links/</guid>
-      <description>包含了友链和我一些很推荐阅读的博客 阮一峰的网络日志 David Simão &amp;rsquo;s jungle</description>
+      <description>包含了友链和我一些很推荐阅读的博客 阮一峰的网络日志 David Simão &amp;rsquo;s jungle 倾旋的博客 Jan Hod的网络世界</description>
     </item>
   </channel>
 </rss>
